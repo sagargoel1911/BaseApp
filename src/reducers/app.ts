@@ -11,6 +11,7 @@ const initial_toast_details = {
 	title: '',
 	message: '',
 	type: '',
+	duration: 3000,
 };
 
 const initialState = {

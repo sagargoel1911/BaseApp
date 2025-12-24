@@ -4,24 +4,17 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { useEffect } from 'react';
+import { PaperProvider } from 'react-native-paper';
 
 import ErrorBoundary from 'src/common/ErrorBoundary';
 import theme from 'src/utils/theme';
 import store, { useAppDispatch } from 'src/store';
-import { show_toast, update_device_info } from 'src/reducers/app';
+import { update_device_info } from 'src/reducers/app';
 import AppStack from 'src/navigation/AppStack';
 import { get_device_info, set_device_info } from 'src/utils/device';
 
 const PrimaryComponent = () => {
 	const dispatch = useAppDispatch();
-
-	dispatch(
-		show_toast({
-			title: 'Hello',
-			message: 'This is a test toast',
-			type: 'success',
-		}),
-	);
 
 	useEffect(() => {
 		const subscription = Dimensions.addEventListener('change', ({ window: { width, height } }) => {
@@ -45,13 +38,15 @@ const App = () => {
 				{/* used to catch errors and show a fallback UI */}
 				<GestureHandlerRootView style={{ flex: 1, backgroundColor: theme.colors.white }}>
 					<NavigationContainer>
-						<SafeAreaProvider>
-							{/* Use this to get insets to get the safe area info using useSafeAreaInsets hook */}
-							<StatusBar backgroundColor={theme.colors.white} barStyle={'dark-content'} />
-							<SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.white }}>
-								<PrimaryComponent />
-							</SafeAreaView>
-						</SafeAreaProvider>
+						<PaperProvider>
+							<SafeAreaProvider>
+								{/* Use this to get insets to get the safe area info using useSafeAreaInsets hook */}
+								<StatusBar backgroundColor={theme.colors.white} barStyle={'dark-content'} />
+								<SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.white }}>
+									<PrimaryComponent />
+								</SafeAreaView>
+							</SafeAreaProvider>
+						</PaperProvider>
 					</NavigationContainer>
 				</GestureHandlerRootView>
 			</ErrorBoundary>

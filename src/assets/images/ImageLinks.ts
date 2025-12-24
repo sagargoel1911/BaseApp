@@ -10,6 +10,11 @@ const ImageLinks = {
 	success: () => require('./icons/success.svg').default,
 	success_circle: () => require('./icons/success_circle.svg').default,
 	error_filled: () => require('./icons/error_filled.svg').default,
+	cross: () => require('./icons/cross.svg').default,
+	checkbox: () => require('./icons/checkbox.svg').default,
+	checkbox_active: () => require('./icons/checkbox_active.svg').default,
+	checkbox_partial: () => require('./icons/checkbox_partial.svg').default,
+	checkbox_disabled: () => require('./icons/checkbox_disabled.svg').default,
 } as const;
 
 const ImageLink_keys = Object.keys(ImageLinks).reduce(
