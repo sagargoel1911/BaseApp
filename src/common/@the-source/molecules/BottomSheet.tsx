@@ -5,8 +5,8 @@ import Text from '../atoms/Text';
 import Button from '../atoms/Button';
 import GBottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 
-const BottomSheet = () => {
-	const bottom_sheet_ref = useRef<typeof GBottomSheet>(null);
+const BottomSheet = (props: any) => {
+	const bottom_sheet_ref = useRef<GBottomSheet>(null);
 
 	const snap_points = useMemo(() => ['25%', '50%', '100%'], []);
 
