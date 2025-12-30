@@ -16,6 +16,7 @@ const ImageLinks = {
 	checkbox_partial: () => require('./icons/checkbox_partial.svg').default,
 	checkbox_disabled: () => require('./icons/checkbox_disabled.svg').default,
 	chevron_down: () => require('./icons/chevron_down.svg').default,
+	close: () => require('./icons/close.svg').default,
 } as const;
 
 const ImageLink_keys = Object.keys(ImageLinks).reduce(

@@ -10,7 +10,7 @@ import ErrorBoundary from 'src/common/ErrorBoundary';
 import theme from 'src/utils/theme';
 import store, { useAppDispatch } from 'src/store';
 import { update_device_info } from 'src/reducers/app';
-import AppStack from 'src/navigation/AppStack';
+import AppStack from 'src/navigation/AppStack/AppStack';
 import { get_device_info, set_device_info } from 'src/utils/device';
 
 const PrimaryComponent = () => {

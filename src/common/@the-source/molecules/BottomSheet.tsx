@@ -1,34 +1,47 @@
-import { View } from 'react-native';
-import React, { useMemo, useRef } from 'react';
+import { Pressable, View } from 'react-native';
+import React, { ReactNode, useMemo, useRef } from 'react';
 
-import Text from '../atoms/Text';
-import Button from '../atoms/Button';
-import GBottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import GBottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import SvgImage from 'src/common/SvgImage';
+import { ImageLink_keys } from 'src/assets/images/ImageLinks';
 
-const BottomSheet = (props: any) => {
+interface Props {
+	children: ReactNode;
+	on_close: () => void;
+	is_open: boolean;
+}
+
+const BottomSheet = ({ children, on_close, is_open }: Props) => {
 	const bottom_sheet_ref = useRef<GBottomSheet>(null);
 
-	const snap_points = useMemo(() => ['25%', '50%', '100%'], []);
+	const snap_points = useMemo(() => ['75%'], []);
+
+	const handle_close = () => {
+		bottom_sheet_ref.current?.close();
+
+		on_close();
+	};
 
 	return (
-		<View style={{ flex: 1 }}>
-			<Button
-				title='Open sheet'
-				onPress={() => {
-					bottom_sheet_ref.current?.expand();
-				}}
-			/>
-
-			<GBottomSheet
-				ref={bottom_sheet_ref}
-				index={0} // closed initially
-				snapPoints={snap_points}
-				enablePanDownToClose>
-				<BottomSheetView style={{ padding: 16, height: '100%' }}>
-					<Text>Bottom Sheet Content klwlwkkwlkwl</Text>
-				</BottomSheetView>
-			</GBottomSheet>
-		</View>
+		<GBottomSheet
+			ref={bottom_sheet_ref}
+			index={is_open ? 0 : -1} // closed initially
+			snapPoints={snap_points}
+			enableDynamicSizing={false}
+			onClose={on_close}
+			style={{ backgroundColor: 'pink', flex: 1 }}
+			backdropComponent={(props) => (
+				<BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.1} onPress={handle_close} />
+			)}>
+			<BottomSheetScrollView showsVerticalScrollIndicator={false} style={{ padding: 16, height: '100%' }}>
+				<View style={{ alignItems: 'flex-end' }}>
+					<Pressable hitSlop={{ top: 5, left: 5, bottom: 5, right: 5 }} onPress={handle_close}>
+						<SvgImage name={ImageLink_keys.close} />
+					</Pressable>
+				</View>
+				{children}
+			</BottomSheetScrollView>
+		</GBottomSheet>
 	);
 };
 

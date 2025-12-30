@@ -2,11 +2,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { shallowEqual } from 'react-redux';
 
 import Loader from 'src/common/@the-source/atoms/Loader';
-import RouteNames from './RouteNames';
+import RouteNames from '../RouteNames';
 import { useAppSelector } from 'src/store';
-import TabBar from './Tab';
+import TabBar from '../Tab';
 import theme from 'src/utils/theme';
 import CustomToast from 'src/common/@the-source/molecules/CustomToast';
+import GenericModal from './components/GenericModal';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ const AppStack = () => {
 				<Stack.Screen component={TabBar} name={RouteNames.MainApp} />
 			</Stack.Navigator>
 			<CustomToast />
+			<GenericModal />
 		</>
 	);
 };
