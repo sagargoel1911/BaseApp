@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Keyboard, ModalProps, Platform, Modal as RNModal, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-
-import theme from 'src/utils/theme';
+import { Keyboard, Platform } from 'react-native';
+import { Modal as RN_Paper_Modal, ModalProps } from 'react-native-paper';
 
 interface Props extends ModalProps {
 	children: any;
@@ -10,8 +9,6 @@ interface Props extends ModalProps {
 
 const ModalComp = ({ children, visible, on_close, ...rest }: Props) => {
 	const [is_keyboard_open, set_is_keyboard_open] = useState(false);
-
-	const { transparent } = rest;
 
 	const onKeyboardChange = (_: any, is_showing: boolean) => {
 		set_is_keyboard_open(is_showing);
@@ -32,23 +29,9 @@ const ModalComp = ({ children, visible, on_close, ...rest }: Props) => {
 	}, []);
 
 	return (
-		<RNModal visible={visible} {...rest}>
-			<TouchableOpacity
-				activeOpacity={1}
-				onPressOut={() => {
-					if (!is_keyboard_open && !transparent) {
-						on_close();
-					}
-				}}
-				style={{
-					flex: 1,
-					alignItems: 'center',
-					justifyContent: 'center',
-					backgroundColor: transparent ? 'transparent' : theme.colors.grey_400,
-				}}>
-				<TouchableWithoutFeedback>{children}</TouchableWithoutFeedback>
-			</TouchableOpacity>
-		</RNModal>
+		<RN_Paper_Modal dismissable={!is_keyboard_open} visible={visible} onDismiss={on_close} {...rest}>
+			{children}
+		</RN_Paper_Modal>
 	);
 };
 
