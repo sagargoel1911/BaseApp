@@ -29,7 +29,7 @@ const BottomSheet = ({ children, on_close, is_open }: Props) => {
 			snapPoints={snap_points}
 			enableDynamicSizing={false}
 			onClose={on_close}
-			style={{ backgroundColor: 'pink', flex: 1 }}
+			style={{ flex: 1 }}
 			backdropComponent={(props) => (
 				<BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} opacity={0.1} onPress={handle_close} />
 			)}>

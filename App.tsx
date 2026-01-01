@@ -28,7 +28,13 @@ const PrimaryComponent = () => {
 		};
 	}, []);
 
-	return <AppStack />;
+	return (
+		<>
+			<SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.white }}>
+				<AppStack />
+			</SafeAreaView>
+		</>
+	);
 };
 
 const App = () => {
@@ -42,9 +48,8 @@ const App = () => {
 							<SafeAreaProvider>
 								{/* Use this to get insets to get the safe area info using useSafeAreaInsets hook */}
 								<StatusBar backgroundColor={theme.colors.white} barStyle={'dark-content'} />
-								<SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.white }}>
-									<PrimaryComponent />
-								</SafeAreaView>
+
+								<PrimaryComponent />
 							</SafeAreaProvider>
 						</PaperProvider>
 					</NavigationContainer>

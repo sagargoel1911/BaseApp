@@ -13,9 +13,9 @@ const ModalComp = ({ children, visible, on_close, ...rest }: Props) => {
 
 	const { transparent } = rest;
 
-	function onKeyboardChange(_: any, is_showing: boolean) {
+	const onKeyboardChange = (_: any, is_showing: boolean) => {
 		set_is_keyboard_open(is_showing);
-	}
+	};
 
 	useEffect(() => {
 		const sub1 = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide', (e) =>

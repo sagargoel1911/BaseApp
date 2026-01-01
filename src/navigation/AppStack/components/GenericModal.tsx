@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { TouchableRipple } from 'react-native-paper';
+import { Modal, TouchableRipple } from 'react-native-paper';
 import { shallowEqual } from 'react-redux';
 import SvgImage from 'src/common/SvgImage';
 import { ImageLink_keys } from 'src/assets/images/ImageLinks';
@@ -10,7 +10,6 @@ import Text from 'src/common/@the-source/atoms/Text';
 import { useAppDispatch, useAppSelector } from 'src/store';
 import device from 'src/utils/device';
 import theme from 'src/utils/theme';
-import Modal from 'src/common/@the-source/atoms/Modal';
 import { hide_generic_modal } from 'src/reducers/app';
 
 const styles = StyleSheet.create({
@@ -125,7 +124,7 @@ const GenericModal = () => {
 	}
 
 	return (
-		<Modal visible={true} on_close={handle_close} style={[wrapper_styles]}>
+		<Modal visible={true} onDismiss={handle_close} style={[{ alignItems: 'center', justifyContent: 'center' }, wrapper_styles]}>
 			<View style={[styles.modal_wrapper, custom_modal_wrapper_styles]}>
 				<View style={styles.header_container}>
 					{header_comp ? (
