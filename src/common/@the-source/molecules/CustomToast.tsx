@@ -9,7 +9,6 @@ import { ImageLink_keys } from 'src/assets/images/ImageLinks';
 import theme from 'src/utils/theme';
 import Text from '../atoms/Text';
 import device from 'src/utils/device';
-import Modal from '../atoms/Modal';
 import { useAppSelector } from 'src/store';
 import { hide_toast } from 'src/reducers/app';
 
@@ -24,7 +23,7 @@ const styles = StyleSheet.create({
 		backgroundColor: theme.colors.black_17,
 		padding: 20,
 		borderRadius: 12,
-		position: 'absolute',
+		// position: 'absolute',
 	},
 	content_styles: {
 		paddingLeft: 20,
@@ -106,7 +105,15 @@ const CustomToastComp = () => {
 	let size = _.isEmpty(message) ? 38 : 48;
 
 	return (
-		<Modal visible={true} on_close={handle_close} transparent>
+		<View
+			style={{
+				position: 'absolute',
+				top: 0,
+				left: 0,
+				right: 0,
+				bottom: 0,
+				alignItems: 'center',
+			}}>
 			<Animated.View style={[styles.container, animated_style]}>
 				{Icon && <SvgImage name={Icon} width={size} height={size} />}
 				<View style={[styles.content_styles]}>
@@ -119,7 +126,7 @@ const CustomToastComp = () => {
 					<SvgImage name={ImageLink_keys.cross_white} />
 				</Pressable>
 			</Animated.View>
-		</Modal>
+		</View>
 	);
 };
 

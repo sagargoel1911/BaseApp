@@ -25,10 +25,15 @@ const Menu = ({ menu_items, anchor, onDismiss, ...rest }: Props) => {
 		onDismiss?.();
 	};
 
+	const handle_press_item = (item: MenuItem) => {
+		close_menu();
+		item.on_press();
+	};
+
 	return (
 		<RN_Paper_Menu visible={visible} anchor={<Pressable onPress={open_menu}>{anchor}</Pressable>} onDismiss={close_menu} {...rest}>
 			{_.map(menu_items, (item) => (
-				<RN_Paper_Menu.Item key={item.title} onPress={item.on_press} title={item.title} />
+				<RN_Paper_Menu.Item key={item.title} onPress={() => handle_press_item(item)} title={item.title} />
 			))}
 		</RN_Paper_Menu>
 	);

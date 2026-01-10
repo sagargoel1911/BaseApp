@@ -7,6 +7,7 @@ import { useAppSelector } from 'src/store';
 import TabBar from '../Tab';
 import theme from 'src/utils/theme';
 import GenericModal from './components/GenericModal';
+import CustomToast from 'src/common/@the-source/molecules/CustomToast';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ const AppStack = () => {
 				<Stack.Screen component={TabBar} name={RouteNames.MainApp} />
 			</Stack.Navigator>
 			<GenericModal />
+			<CustomToast />
 		</>
 	);
 };

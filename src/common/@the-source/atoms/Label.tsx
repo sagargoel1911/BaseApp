@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 	dot_styles: {
 		width: 10,
 		height: 10,
-		borderRadius: 5,
+		borderRadius: 10,
 		marginRight: 4,
 	},
 });

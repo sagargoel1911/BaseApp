@@ -1,4 +1,4 @@
-import { ActivityIndicator, StyleSheet, View, Modal } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import theme from 'src/utils/theme';
 
 const styles = StyleSheet.create({
@@ -14,11 +14,20 @@ const styles = StyleSheet.create({
 
 const Loader = () => {
 	return (
-		<Modal visible={true}>
+		<View
+			style={{
+				position: 'absolute',
+				top: 0,
+				left: 0,
+				right: 0,
+				bottom: 0,
+				alignItems: 'center',
+				zIndex: 10000,
+			}}>
 			<View style={styles.wrapper}>
 				<ActivityIndicator size='large' color={theme.colors.white} />
 			</View>
-		</Modal>
+		</View>
 	);
 };
 
