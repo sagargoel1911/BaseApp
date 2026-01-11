@@ -73,6 +73,7 @@ const SelectBottomSheetComp = ({
 		<View style={{ flex: 1 }}>
 			<FlatList
 				data={options}
+				scrollEnabled={false}
 				ListHeaderComponent={
 					<>
 						{!is_single_select && (
