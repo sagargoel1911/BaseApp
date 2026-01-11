@@ -12,6 +12,7 @@ import store, { useAppDispatch } from 'src/store';
 import { update_device_info } from 'src/reducers/app';
 import AppStack from 'src/navigation/AppStack/AppStack';
 import { get_device_info, set_device_info } from 'src/utils/device';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 const PrimaryComponent = () => {
 	const dispatch = useAppDispatch();
@@ -43,16 +44,18 @@ const App = () => {
 			<ErrorBoundary>
 				{/* used to catch errors and show a fallback UI */}
 				<GestureHandlerRootView style={{ flex: 1, backgroundColor: theme.colors.white }}>
-					<NavigationContainer>
-						<PaperProvider>
-							<SafeAreaProvider>
-								{/* Use this to get insets to get the safe area info using useSafeAreaInsets hook */}
-								<StatusBar backgroundColor={theme.colors.white} barStyle={'dark-content'} />
+					<BottomSheetModalProvider>
+						<NavigationContainer>
+							<PaperProvider>
+								<SafeAreaProvider>
+									{/* Use this to get insets to get the safe area info using useSafeAreaInsets hook */}
+									<StatusBar backgroundColor={theme.colors.white} barStyle={'dark-content'} />
 
-								<PrimaryComponent />
-							</SafeAreaProvider>
-						</PaperProvider>
-					</NavigationContainer>
+									<PrimaryComponent />
+								</SafeAreaProvider>
+							</PaperProvider>
+						</NavigationContainer>
+					</BottomSheetModalProvider>
 				</GestureHandlerRootView>
 			</ErrorBoundary>
 		</Provider>

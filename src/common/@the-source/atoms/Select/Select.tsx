@@ -165,7 +165,8 @@ const Select = ({
 										borderColor: error ? theme.colors.error_500 : theme.colors.grey_400,
 										borderRadius: 8,
 										borderWidth: 1,
-										padding: 2,
+										paddingHorizontal: 8,
+										height: 40,
 									},
 									style,
 								]}>

@@ -36,6 +36,17 @@ interface Props {
 	header_text?: string;
 }
 
+interface SelectBottomSheetCompProps {
+	options: any;
+	is_single_select: boolean;
+	SPACE: number;
+	is_all_selected: string;
+	select_all_products: () => void;
+	show_clear: boolean;
+	handle_reset_form: () => void;
+	handle_done: () => void;
+}
+
 const styles = StyleSheet.create({
 	footer: {
 		borderTopColor: theme.colors.black_12,
@@ -48,56 +59,104 @@ const styles = StyleSheet.create({
 	},
 });
 
-const SelectBottomSheetComp = ({ options, is_single_select, SPACE, is_all_selected, select_all_products }: any) => {
+const SelectBottomSheetComp = ({
+	options,
+	is_single_select,
+	SPACE,
+	is_all_selected,
+	select_all_products,
+	show_clear,
+	handle_reset_form,
+	handle_done,
+}: SelectBottomSheetCompProps) => {
 	return (
-		<FlatList
-			data={options}
-			ListHeaderComponent={
-				<>
-					{!is_single_select && (
-						<Pressable
-							onPress={select_all_products}
-							style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-							{is_all_selected === SELECTION_STATE.all_selected ? (
-								<SvgImage name={ImageLink_keys.checkbox_active} width={22} height={22} style={{ marginRight: 8 }} />
-							) : is_all_selected === SELECTION_STATE.partially_selected ? (
-								<SvgImage name={ImageLink_keys.checkbox_partial} width={22} height={22} style={{ marginRight: 8 }} />
-							) : (
-								<SvgImage name={ImageLink_keys.checkbox} width={22} height={22} style={{ marginRight: 8 }} />
-							)}
-							<Text bold>Select all</Text>
-						</Pressable>
+		<View style={{ flex: 1 }}>
+			<FlatList
+				data={options}
+				ListHeaderComponent={
+					<>
+						{!is_single_select && (
+							<Pressable
+								onPress={select_all_products}
+								style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+								{is_all_selected === SELECTION_STATE.all_selected ? (
+									<SvgImage
+										name={ImageLink_keys.checkbox_active}
+										width={22}
+										height={22}
+										style={{ marginRight: 8 }}
+									/>
+								) : is_all_selected === SELECTION_STATE.partially_selected ? (
+									<SvgImage
+										name={ImageLink_keys.checkbox_partial}
+										width={22}
+										height={22}
+										style={{ marginRight: 8 }}
+									/>
+								) : (
+									<SvgImage name={ImageLink_keys.checkbox} width={22} height={22} style={{ marginRight: 8 }} />
+								)}
+								<Text bold>Select all</Text>
+							</Pressable>
+						)}
+					</>
+				}
+				style={{
+					paddingHorizontal: SPACE,
+					marginVertical: 20,
+				}}
+				renderItem={({ item }) => {
+					return is_single_select ? (
+						<RadioButton
+							name={'value'}
+							defaultValue={''}
+							radiobox_value={item.value}
+							label={item.label}
+							container_styles={[{ paddingVertical: 10 }]}
+							dont_allow_uncheck={true}
+						/>
+					) : (
+						<Checkbox
+							name={'value'}
+							defaultValue={[]}
+							checkbox_wrapper_styles={[{ paddingVertical: 10 }]}
+							is_array={true}
+							checkbox_value={item.value}
+							label={item.label}
+							size={22}
+						/>
+					);
+				}}
+			/>
+
+			{show_clear || !is_single_select ? (
+				<View style={[styles.footer, { paddingHorizontal: SPACE }]}>
+					{show_clear && (
+						<Button
+							title='Clear'
+							width={166}
+							style={[
+								{ height: 45, backgroundColor: theme.colors.primary_50, borderWidth: 0 },
+								!device.isTablet && { flex: is_single_select ? 0 : 1 },
+							]}
+							text_style={{ fontSize: 16, color: theme.colors.primary_main }}
+							text_props={{ medium: false, bold: true }}
+							onPress={handle_reset_form}
+						/>
 					)}
-				</>
-			}
-			style={{
-				paddingHorizontal: SPACE,
-				marginVertical: 20,
-				maxHeight: device.height * 0.5,
-			}}
-			renderItem={({ item }) => {
-				return is_single_select ? (
-					<RadioButton
-						name={'value'}
-						defaultValue={''}
-						radiobox_value={item.value}
-						label={item.label}
-						container_styles={[{ paddingVertical: 10 }]}
-						dont_allow_uncheck={true}
-					/>
-				) : (
-					<Checkbox
-						name={'value'}
-						defaultValue={[]}
-						checkbox_wrapper_styles={[{ paddingVertical: 10 }]}
-						is_array={true}
-						checkbox_value={item.value}
-						label={item.label}
-						size={22}
-					/>
-				);
-			}}
-		/>
+					{!is_single_select && (
+						<Button
+							title='Done'
+							width={166}
+							style={[{ height: 45 }, !device.isTablet && { flex: 1 }]}
+							text_style={{ fontSize: 16 }}
+							text_props={{ medium: false, bold: true }}
+							onPress={handle_done}
+						/>
+					)}
+				</View>
+			) : null}
+		</View>
 	);
 };
 
@@ -172,42 +231,7 @@ const SelectBottomSheet = (props: Props) => {
 	const { SPACE } = utils.get_responsive_styles(redux_device_info);
 
 	return (
-		<BottomSheet
-			title={header_text}
-			on_close={() => close(value)}
-			container_styles={{
-				minHeight: device.height * 0.6,
-			}}
-			custom_footer={
-				show_clear || !is_single_select ? (
-					<View style={[styles.footer, { paddingHorizontal: SPACE }]}>
-						{show_clear && (
-							<Button
-								title='Clear'
-								width={166}
-								style={[
-									{ height: 45, backgroundColor: theme.colors.primary_50, borderWidth: 0 },
-									!device.isTablet && { flex: is_single_select ? 0 : 1 },
-								]}
-								text_style={{ fontSize: 16, color: theme.colors.primary_main }}
-								text_props={{ medium: false, bold: true }}
-								onPress={handle_reset_form}
-							/>
-						)}
-						{!is_single_select && (
-							<Button
-								title='Done'
-								width={166}
-								style={[{ height: 45 }, !device.isTablet && { flex: 1 }]}
-								text_style={{ fontSize: 16 }}
-								text_props={{ medium: false, bold: true }}
-								onPress={handle_done}
-							/>
-						)}
-					</View>
-				) : null
-			}
-			child_styles={{ flex: 1 }}>
+		<BottomSheet is_open={true} on_close={() => close(value)} header_text={header_text}>
 			<FormProvider {...methods}>
 				<SelectBottomSheetComp
 					options={options}
@@ -215,6 +239,9 @@ const SelectBottomSheet = (props: Props) => {
 					SPACE={SPACE}
 					is_all_selected={is_all_selected}
 					select_all_products={select_all_products}
+					show_clear={show_clear}
+					handle_reset_form={handle_reset_form}
+					handle_done={handle_done}
 				/>
 			</FormProvider>
 		</BottomSheet>

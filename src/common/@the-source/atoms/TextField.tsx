@@ -13,6 +13,8 @@ const styles = StyleSheet.create({
 		fontFamily: theme.fonts.satoshi_regular,
 		color: theme.colors.text_900,
 		fontSize: 16,
+		borderWidth: 1,
+		paddingHorizontal: 8,
 	},
 	label: {
 		fontSize: 14,
@@ -147,7 +149,7 @@ const TextField = ({
 								variant='outline'
 								width={'100%'}
 								borderColor={theme.colors.grey_400}
-								height={input_height ? input_height : multiline ? '96px' : '40px'}
+								height={input_height ? input_height : multiline ? 96 : 40}
 								multiline={multiline}
 								{...(!multiline && { returnKeyType: 'done' })}
 								onFocus={() => {
