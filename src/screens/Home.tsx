@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -18,6 +18,7 @@ import device from 'src/utils/device';
 import { show_generic_modal, show_toast, show_loader, hide_loader } from 'src/reducers/app';
 import { useAppDispatch, useAppSelector } from 'src/store';
 import utils from 'src/utils/utils';
+import ScrollView from 'src/common/@the-source/atoms/ScrollView';
 
 const styles = StyleSheet.create({
 	container: {

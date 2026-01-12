@@ -132,7 +132,7 @@ const TabBar = () => {
 	return (
 		<Tab.Navigator
 			initialRouteName={TabRoutes.Home}
-			screenOptions={{ headerShown: false }}
+			screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}
 			tabBar={(props: any) => <TabView {...props} />}>
 			<Tab.Screen name={TabRoutes.Home} component={Home} />
 			<Tab.Screen name={TabRoutes.Contact} component={Contact} />
