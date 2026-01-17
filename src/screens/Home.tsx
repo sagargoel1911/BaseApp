@@ -1,7 +1,8 @@
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { FormProvider, useForm } from 'react-hook-form';
+import _ from 'lodash';
 
 import Text from 'src/common/@the-source/atoms/Text';
 import theme from 'src/utils/theme';
@@ -19,6 +20,8 @@ import { show_generic_modal, show_toast, show_loader, hide_loader } from 'src/re
 import { useAppDispatch, useAppSelector } from 'src/store';
 import utils from 'src/utils/utils';
 import ScrollView from 'src/common/@the-source/atoms/ScrollView';
+import SvgImage from 'src/common/SvgImage';
+import { ImageLink_keys } from 'src/assets/images/ImageLinks';
 
 const styles = StyleSheet.create({
 	container: {
@@ -44,6 +47,23 @@ const styles = StyleSheet.create({
 		flexDirection: device.isTablet ? 'row' : 'column',
 		gap: 15,
 		flexWrap: 'wrap',
+	},
+	modal_header: {
+		paddingHorizontal: 24,
+		paddingVertical: 16,
+		backgroundColor: theme.colors.white,
+		borderBottomWidth: 1,
+		borderColor: theme.colors.border_gray,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+	modal_footer: {
+		paddingHorizontal: 24,
+		paddingVertical: 16,
+		backgroundColor: theme.colors.white,
+		borderTopWidth: 1,
+		borderColor: theme.colors.border_gray,
 	},
 });
 
@@ -415,7 +435,7 @@ const Home = () => {
 						<Text style={styles.form_title}>FormBuilder - All Types Demonstration</Text>
 						<FormProvider {...form_methods}>
 							<View style={styles.form_row}>
-								{form_attributes.map((attribute) => (
+								{_.map(form_attributes, (attribute) => (
 									<FormBuilder
 										key={attribute.id}
 										type={attribute.type}
@@ -448,10 +468,17 @@ const Home = () => {
 					<Text>Bottom Sheet</Text>
 				</View>
 			</BottomSheet>
-			<Modal visible={is_modal_open} on_close={handle_close_modal}>
-				<View style={{ backgroundColor: theme.colors.white, padding: 20, borderRadius: 10, margin: 20 }}>
-					<Text style={{ fontSize: 18, marginBottom: 10 }}>Custom Modal</Text>
-					<Text style={{ marginBottom: 20 }}>This is a custom modal component</Text>
+			<Modal visible={is_modal_open} on_close={handle_close_modal} style={{ width: device.isTablet ? 420 : '90%' }}>
+				<View style={styles.modal_header}>
+					<Text style={{ fontSize: 18 }}>Custom Modal</Text>
+					<Pressable onPress={handle_close_modal}>
+						<SvgImage name={ImageLink_keys.close} height={24} width={24} />
+					</Pressable>
+				</View>
+				<View style={{ paddingHorizontal: 24, paddingVertical: 16, backgroundColor: theme.colors.white }}>
+					<Text>This is a custom modal component</Text>
+				</View>
+				<View style={styles.modal_footer}>
 					<Button title='Close' onPress={handle_close_modal} />
 				</View>
 			</Modal>
